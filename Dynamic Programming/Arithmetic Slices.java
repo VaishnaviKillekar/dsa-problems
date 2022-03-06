@@ -33,8 +33,8 @@ class Solution {
             if(nums[i] - nums[i-1] == diff) {
                 count++;
                 if(count >= 3) {
-                    int slice = i - pos + 1;
-                    dp[i] = dp[i-1] + (slice - 2);
+                    int slice = i - pos;
+                    dp[i] = dp[i-1] + (slice - 1);
                 }
             }
             else {
