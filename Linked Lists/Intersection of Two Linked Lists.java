@@ -1,15 +1,33 @@
 // Link to problem - https://leetcode.com/problems/intersection-of-two-linked-lists/
 
 /**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
+ * Intuition - Iterate through the lists using two pointers. Once the end of the list is reached, the pointers are
+ * switched to the other list. This way, the pointers will eventually meet at the intersecting node.
+ *
+ * Time complexity - O(m + n)
+ * Space complexity - O(1)
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA;
+        ListNode b = headB;
+        
+        while(a != b) {
+            a = a == null ? headB : a.next;
+            b = b == null ? headA : b.next;
+        }
+        return a;
+    }
+}
+
+/**
+ * Intuition - Count the number of nodes in both lists. The list which contains more nodes, its pointer should
+ * be moved those many positions ahead such that both lists are the same distance from the intersecting node.
+ * Now move pointers of both list one position at a time and compare if the nodes are equal.
+ * When they are equal, that is returned as the intersecting node.
+ *
+ * Time complexity - O(m + n) + O(n) [Count nodes in both lists, move pointers until they intersect, which could be last node]
+ * Space complexity - O(1)
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
