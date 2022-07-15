@@ -1,5 +1,31 @@
 // Link to problem - https://leetcode.com/problems/middle-of-the-linked-list/
 
+/**
+ * Intuition - Flyod's Cycle Detection Algorithm
+ * We use two pointers - 'fast' and 'slow'. The 'fast' pointer jumps two nodes while the
+ * 'slow' pointer jumps one node. The iteration is carried out until 'fast' itself or its
+ * next node is not null.
+ * When loop terminates, fast has reached the end of list in case of odd number of nodes
+ * and gone beyond the end in case of even nodes. 'slow' pointer points to the middle
+ * node as needed.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(1)
+ */
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        
+        return slow;
+    }
+}
+
 
 /**
  * Intuition - Recursive approach 
