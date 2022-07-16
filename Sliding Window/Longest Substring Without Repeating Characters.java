@@ -1,5 +1,40 @@
 // Link to problem - https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
+/**
+ * Intuition - Sliding window
+ * Start adding characters to the window and a map to track read elements with their
+ * indices. When a duplicate character is read, slide the window forward from the
+ * position next to the first instance of the duplicate character.
+ * Remove all map entries whose index lies before the first instance of the duplicate
+ * character.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(n)
+ */
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        int i = 0;
+        
+        while(i < s.length()) {
+            Integer pos = map.get(s.charAt(i));
+            // Duplicate found
+            // Check current length and reset max if substring is longer
+            // Remove all elements found before the first instance of duplicate
+            if(pos != null) {
+                max = map.size() > max ? map.size() : max;
+                map.values().removeIf(value -> value < pos);
+            }
+            map.put(s.charAt(i), i);
+            i++;
+        }
+        
+        return map.size() > max ? map.size() : max;
+    }
+}
+
+
 
 class Solution {
     public int lengthOfLongestSubstring(String s) {
