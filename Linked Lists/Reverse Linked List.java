@@ -34,6 +34,38 @@ class Solution {
 
 /**
  * Intuition - Iterative approach
+ * We use a 'curr' pointer which points to the current node that needs to move to the start
+ * of the list and become the new head.
+ * Iterate through the list starting from the second node so the original head can be the 
+ * last nodeof the reversed list.
+ * Move the current node to the start (or before current head) and advance the 'curr' pointer.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(1)
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode curr = head;
+        
+        if(head == null) {
+            return head;
+        }
+        curr = curr.next;
+        head.next = null;
+        
+        while(curr != null) {
+            ListNode next = curr.next;
+            curr.next = head;
+            head = curr;
+            curr = next;
+        }
+        
+        return head;
+    }
+}
+
+/**
+ * Intuition - Iterative approach
  * Two pointers `prev` and `curr` store the pointers to the previous and current elements.
  * Start with head as `prev`. While the `curr` pointer is not null, reverse the pointers
  * for these two elements. The move on to the next elements on the list.
