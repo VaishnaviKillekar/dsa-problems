@@ -1,6 +1,41 @@
 // Link to problem - https://leetcode.com/problems/longest-common-prefix/
 
 /**
+ * A more concise solution
+ * Scan through current string and the prefix. For every element that matches, add it
+ * to current prefix and update the result prefix.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(m)
+ */
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        String prefix = strs[0];
+        
+        for(int i = 1; i < strs.length; i++) {
+            String curr = strs[i];
+            StringBuilder newPrefix = new StringBuilder();
+            int c = 0;
+            int p = 0;
+            while(p < prefix.length() && c < curr.length()) {
+                if(prefix.charAt(p) == curr.charAt(c)) {
+                    newPrefix.append(prefix.charAt(p));
+                    p++;
+                    c++;
+                }
+                else {
+                    break;
+                }
+            }
+            prefix = newPrefix.toString();
+        }
+        
+        return prefix;
+    }
+}
+
+
+/**
  * Intuition - Scan through the string of arrays from the 2nd string with 1st string set as initial prefix.
  * If the 'prefix' is longer than current string, then compare characters of both strings until there is no match using the 'shorter' string as reference.
  * An 'index' variable is used to track the longest common substring while comparing the two strings.
