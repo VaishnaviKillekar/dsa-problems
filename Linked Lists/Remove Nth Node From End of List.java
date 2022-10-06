@@ -1,7 +1,7 @@
 // Link to problem - https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 
 /**
- * Intuition - Two pointer approach
+ * Intuition - Two pointer approach with dummy node
  * Use two pointers 'fast' and 'slow' such that the gap between them is n+1.
  * Gap is n+1 to get the previous node of nth.
  * 
@@ -35,6 +35,35 @@ class Solution {
         // Remove the nth node
         slow.next = slow.next.next;
         return start.next;
+    }
+}
+
+/**
+ * Intuition - Two pointer approach without dummy node
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        int i = 1;
+        while(fast != null && i <= n) {
+            fast = fast.next;
+            i++;
+        }
+        
+        if(fast == null) {
+            return slow.next;
+        }
+        
+        while(fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        slow.next = slow.next.next;
+        
+        return head;
     }
 }
 
