@@ -22,15 +22,12 @@ class Solution {
             }
         }
         
-        if(p >= 0) {
-            while(p >= 0) {
-                nums1[i--] = nums1[p--];
-            }
+        while(p >= 0) {
+            nums1[i--] = nums1[p--];
         }
-        else {
-            while(q >= 0) {
-                nums1[i--] = nums2[q--];
-            }
+
+        while(q >= 0) {
+            nums1[i--] = nums2[q--];
         }
     }
 }
