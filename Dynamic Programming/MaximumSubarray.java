@@ -21,7 +21,9 @@ class Solution {
 }
 
 
-// DP approach
+/**
+ * DP approach with O(n) space complexity
+ */
 class Solution {
     public int maxSubArray(int[] nums) {
         int max = nums[0];
@@ -32,6 +34,32 @@ class Solution {
             sum[i] = nums[i] + (sum[i-1] > 0 ? sum[i-1] : 0);
             max = Math.max(sum[i], max);
         }
+        return max;
+    }
+}
+
+
+/**
+ * DP solution with O(1) space complexity
+ */
+ class Solution {
+    public int maxSubArray(int[] nums) {
+        int max = nums[0];
+        int sum = nums[0];
+        
+        for(int i = 1; i < nums.length; i++) {
+            int temp = sum + nums[i];
+            if(nums[i] > temp || temp < 0) {
+                sum = nums[i];
+            }
+            else {
+                sum = temp;
+            }
+            if(sum > max) {
+                max = sum;
+            }
+        }
+        
         return max;
     }
 }
