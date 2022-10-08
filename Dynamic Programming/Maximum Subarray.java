@@ -1,7 +1,28 @@
 // Link to problem - https://leetcode.com/problems/maximum-subarray/
 
+/**
+   Test cases -
+    [-2,1,-3,4,-1,2,1,-5,4]
+    [5,4,-1,7,8]
+    [1]
+    [-2,1,-3,-4,-1,2,1,-5,4]
+    [-2,1,-3,4,-1,2,1,-5,14]
+    [1,2,3,4]
+    [0]
+    [0,0]
+    [0,0,0]
+    [0,-1]
+    [0,-1,-2]
+    [0,-1,2]
+    [0,-1,2,-1]
+*/
 
-// O(n) solution - Kadane's Algorithm
+/**
+ * Intuition - Kadane's Algorithm
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(1)
+ */
 class Solution {
     public int maxSubArray(int[] nums) {
         int max = Integer.MIN_VALUE;
