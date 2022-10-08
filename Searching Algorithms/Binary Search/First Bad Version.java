@@ -16,7 +16,7 @@ public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
         int left = 1;
         int right = n;
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left) / 2;    // NOTE: (left + right) / 2 gives TLE as this result could be too large
         
         while(left <= right) {
             boolean curr = isBadVersion(mid);
