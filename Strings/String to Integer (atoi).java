@@ -1,10 +1,38 @@
 // Link to problem - https://leetcode.com/problems/string-to-integer-atoi/
 
 /**
+ * BAD PROBLEM - NO NEED TO SPEND TIME
+ *
  * Intuition - Go through solution and study overflow condition.
  *
  * Time complexity - O(n)
  * Space complexity - O(1)
+ *
+ * Test cases:
+     ""
+    "004.2"
+    "0.02"
+    "42"
+    "001"
+    "0032"
+    "2147483647"
+    "-42"
+    "-001"
+    "-0032"
+    "-2147483647"
+    "      -2147483647"
+    "-002147483647"
+    "-2147483647   "
+    "-2147483647as"
+    "words and 987"
+    "    0009a1"
+    "    -0009a1"
+    "           +0000000a"
+    "           -00000001a"
+    "         -02147483646"
+    "-91283472332"
+    "2147483648"
+ *
  */
 class Solution {
     public int myAtoi(String str) {
