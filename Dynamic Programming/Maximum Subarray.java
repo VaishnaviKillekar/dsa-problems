@@ -19,6 +19,34 @@
 
 /**
  * Intuition - Kadane's Algorithm
+ * Initially both max and sum are set to first element. Start scanning array from 2nd
+ * element. Add current element to sum. If this sum is smaller than current element
+ * itself, then reset sum to current element.
+ * If sum > max, then set new max.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(1)
+ */
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int sum = nums[0];
+        int max = nums[0];
+        
+        for(int i = 1; i < nums.length; i++) {
+            sum += nums[i];
+            if(sum < nums[i]) {
+                sum = nums[i];
+            }
+            max = sum > max? sum : max;
+        }
+        
+        return max;
+    }
+}
+
+
+/**
+ * Intuition - Kadane's Algorithm
  *
  * Time complexity - O(n)
  * Space complexity - O(1)
