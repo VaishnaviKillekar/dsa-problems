@@ -1,6 +1,47 @@
 // Link to problem - https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
 
 /**
+ * Intuition - Compare the characters from haystack starting at pointer `start` with needle.
+ * If an exact match is found, return `start`. While comparing characters, also store the
+ * index of the first character which is the same as first character of needle to move the
+ * start pointer to this position if needle is not found at current `start`.
+ *
+ * Time complexity - O(n)
+ * Space cmplexity - O(1)
+ */
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int start = 0;
+        int n;
+        int next;
+
+        while(start <= haystack.length() - needle.length()) {
+            n = 0;
+            next = -1;
+            int begin = start;
+            int end = begin;
+            while(n < needle.length() && haystack.charAt(end) == needle.charAt(n)) {
+                next = (next != -1 && haystack.charAt(end) == needle.charAt(0)) ? end : next;
+                n++;
+                end++;
+            }
+            if(end - begin == needle.length()) {
+                return start;
+            }
+            else if(next != -1) {
+                start = next;
+            }
+            else {
+                start++;
+            }
+        }
+
+        return -1;
+    }
+}
+
+
+/**
  * Intuition - Use sliding window technique to find the 'needle' in 'haystack'.
  * The length of 'needle' becomes the window size. Store all unique characters
  * of needle in a set 'chars'.
