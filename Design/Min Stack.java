@@ -1,7 +1,62 @@
 // Link to problem - https://leetcode.com/problems/min-stack/
 
 /**
- * Intuition - Use a custom Linked List where the current lowest value is stored
+ * Intuition - With dummy node - tail
+ * Design a custom linked list which has both 'prev' and 'next' pointers, 'val'
+ * and an extra field 'min' which stores the lowest value encountered so far.
+ *
+ * While push, compare the 'min' of current tail (last pushed element) with 'val'
+ * of current element to be pushed and store the minimum in the new tail's 'min'.
+ *
+ * Time complexity - O(1)
+ * Space complexity - O(n)
+ */
+class MinStack {
+
+    class Node {
+        int val;
+        Node prev;
+        Node next;
+        int min;
+
+        public Node(int val) {
+            this.val = val;
+        }
+    }
+
+    Node tail;
+
+    public MinStack() {
+        tail = new Node(0);
+        tail.min = Integer.MAX_VALUE;
+    }
+    
+    public void push(int val) {
+        Node node = new Node(val);
+        node.next = tail;
+        node.min = Math.min(val, tail.min);
+        tail.prev = node;
+        tail = node;
+    }
+    
+    public void pop() {
+        tail = tail.next;
+        tail.prev = null;
+    }
+    
+    public int top() {
+        return tail.val;
+    }
+    
+    public int getMin() {
+        return tail.min;
+    }
+}
+
+
+/**
+ * Intuition - Without Dummy Node
+ * Use a custom Linked List where the current lowest value is stored
  * at each node including previous and next pointers.
  *
  * Time complexity - O(n)
