@@ -27,3 +27,34 @@ class Solution {
         }
     }
 }
+
+/**
+ * Intuition - Iterative solution with O(n) space
+ * Store the last k elements of array 'nums' into a separate array 'end'.
+ * Now rotate 'nums' such that 'i'th position is directly shifted to the
+ * right by 'k' positions. When we reach the left of array and do not
+ * have elements to shift right, then use elements from 'end'.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(n)
+ */
+class Solution {
+    public void rotate(int[] nums, int k) {
+        k = k % nums.length;
+
+        if(k != 0) {
+            // Copy the last k elements that move to the start of array
+            int end[] = new int[k];
+            int j = 0;
+            for(int i = nums.length - k; i < nums.length; i++) {
+                end[j++] = nums[i];
+            }
+
+            // Now rotate all elements
+            int m = end.length - 1;
+            for(int i = nums.length - 1; i >= 0; i--) {
+                nums[i] = i - k >= 0 ? nums[i - k] : end[m--];
+            }
+        }
+    }
+}
