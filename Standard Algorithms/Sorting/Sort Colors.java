@@ -38,6 +38,52 @@ class Solution {
 }
 
 
+/**
+ * Intuition - Alternate one-pass solution
+ * Set the 'zero' and 'two' pointers outside the array on extreme ends. 'curr' points to
+ * current element in the array. When a 0 or 2 is found by 'curr', then increment or
+ * decrement the 'zero' and 'two' pointer first and swap them with 'curr'.
+ * If 'curr' and 'zero'/'two' pointers point to the same index, then increment 'curr' as
+ * element is in it's correct place.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(1)
+ */
+import java.util.* ;
+import java.io.*; 
+public class Solution 
+{
+    public static void sort012(int[] arr)
+    {
+        int zero = -1;
+        int two = arr.length;
+        int curr = 0;
+
+        while(curr < arr.length) {
+            if(arr[curr] == 0) {
+                zero++;
+                swap(arr, curr, zero);
+                if(zero == curr) curr++;
+            }
+            else if(arr[curr] == 2 && curr < two) {
+                two--;
+                swap(arr, curr, two);
+                if(two == curr) curr++;
+            }
+            else {
+                curr++;
+            }
+        }
+    }
+
+    public static void swap(int[] arr, int i, int j)
+    {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
 
 /**
  * Intuition - Two-pass solution
