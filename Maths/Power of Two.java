@@ -21,3 +21,26 @@ class Solution {
         return Math.pow(2, log) == n ? true : false;
     }
 }
+
+
+/**
+ * Intuition - Divide given number by 2 and compare if remainder is not zero.
+ * if remainder is zero, then continue dividing the number until it is not 0 or 1.
+ * If the number is equal to 1 at the end, then it is a power of 2.
+ *
+ * Time complexity - O(1)
+ * Space complexity - O(1)
+ */
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+
+        while(n != 0 && n != 1) {
+            if(n % 2 != 0) {
+                return false;
+            }
+            n = n / 2;
+        }
+
+        return n == 1;
+    }
+}
