@@ -1,5 +1,63 @@
 // Link to problem - https://leetcode.com/problems/spiral-matrix/
 
+
+/**
+ * Intuition - To iterate spirally, we need to follow this order:
+ * topmost row -> rightmost column -> bottommost row -> leftmost column
+ *
+ * After iterating through the boundary, we shrink it and continue this
+ * until read elements are not equal to total elements.
+ *
+ * Time complexity - O(m * n)
+ * Space complexity - O(1)
+ */
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> spiral = new ArrayList<>();
+        int count = 0;  // Count the elements as they are added to spiral order
+        int m = matrix.length;  // Total rows
+        int n = matrix[0].length;   // Total columns
+
+        // Extreme ends of a spiral - updated after iteration to mark new boundaries
+        int topRow = 0;
+        int bottomRow = m - 1;
+        int leftCol = 0;
+        int rightCol = n - 1;
+
+        while(count < m * n) {
+            // Iterate through top row from left to right
+            for(int j = leftCol; count < m * n && j <= rightCol; j++) {
+                spiral.add(matrix[topRow][j]);
+                count++;
+            }
+            topRow++;   // Top row is iterated
+
+            // Iterate through rightmost column from top to bottom
+            for(int i = topRow; count < m * n && i <= bottomRow; i++) {
+                spiral.add(matrix[i][rightCol]);
+                count++;
+            }
+            rightCol--;     // Right column is iterated
+
+            // Iterate through the bottom row from right to left
+            for(int j = rightCol; count < m * n && j >= leftCol; j--) {
+                spiral.add(matrix[bottomRow][j]);
+                count++;
+            }
+            bottomRow--;    // Bottom row is iterated
+
+            // Iterate through leftmost column from bottom to top
+            for(int i = bottomRow; count < m * n && i >= topRow; i--) {
+                spiral.add(matrix[i][leftCol]);
+                count++;
+            }
+            leftCol++;    // Left column is iterated
+        }
+
+        return spiral;
+    }
+}
+
 /**
  * Intuition - Using bounding variables to track scanned rows and columns
  * Track the scanned rows and columns using top, bottom, left and right variables.
