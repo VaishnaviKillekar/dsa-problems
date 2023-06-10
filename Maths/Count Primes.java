@@ -7,7 +7,20 @@
  * So when an integer is found to be false in composite, then increment count and mark its 
  * multiples as true.
  *
- * Time complexity - O(n)
+ * For i = 2: we go through n/2 elements
+ * For i = 3: we go through n/3 elements
+ * For i = 4: skip since this is marked as composite
+ * For i = 5: we go through n/5 elements
+ * For i = 6: skip since this is marked as composite
+ * For i = 7: we go through n/7 elements
+ * ...
+ * Total time taken = n/2 + n/3 + n/5 + n/7 + ...
+ *                  = n(1/2 + 1/3 + 1/5 + 1/7 + ...)
+ * 
+ * Harmonic Progression of prime numbers which can be reduced to log(log(n))
+ * Hence, time taken = n * log(log(n))
+ *
+ * Time complexity - O(n * log(log(n)))
  * Space complexity - O(n)
  */
 class Solution {
