@@ -22,6 +22,14 @@
  *                                    \                               /                           |
  *                                        [1,2,5,6,8,9,11,15,23]                                __|
  *
+ * Algorithm is stable and can be parallelised.
+ * It is not in-place as it requires additional arrays. 
+ * 
+ * However, it can be used without extra space for sorting linked lists. Merge Sort is ideal for sorting linked lists
+ * as it sequentiality accesses data without the need for random access of elements. Hence, Merge Sort can be applied
+ * without the need for auxiliary arrays as creation and deletion of a node takes O(1) time and elements can be easily
+ * swapped in given array during merge phase.
+ *
  * Time complexity - O(n * logn)
  * Space complexity - O(n)
  */
