@@ -3,7 +3,7 @@
 /**
  * Intuition - Use recursion with backtracking to generate all permutations.
  *
- * Time complexity - O(n!) - n! permutations to be generated
+ * Time complexity - O(n * n!) - n! permutations to be generated
  * Space complexity - O(n)
  */
 class Solution {
