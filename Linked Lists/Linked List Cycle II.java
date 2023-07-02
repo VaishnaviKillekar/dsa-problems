@@ -1,33 +1,40 @@
 // Link to problem - https://leetcode.com/problems/linked-list-cycle-ii/
 
 /**
- * Definition for singly-linked list.
- * class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
+ * Intuition - FLyod's Cycle Detection algorithm
+ * Use fast and slow pointers to detect if the list contains a cycle.
+ * If there's a cycle, then reset the slow pointer to head and advance both
+ * fast and slow pointers by one node at a time until fast.next is not slow.
+ *
+ * Time complexity - O(n)
+ * Space complexity - O()
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
+        if(head == null) {
+            return head;
+        }
+
         ListNode slow = head;
         ListNode fast = head.next;
-        
-        if(head == null || head.next == null) {
+
+        while(fast != null && fast.next != null && fast != slow) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        // List has no cycle as there is a node with a next pointer as null
+        if(fast == null || fast.next == null) {
             return null;
         }
-        
-        while(fast != null && fast.next != null && !fast.equals(slow)) {
+
+        // List has a cycle as fast met slow
+        slow = head;
+        while(fast.next != slow) {
+            fast = fast.next;
             slow = slow.next;
-            fast = fast.next.next;
         }
-        
-        if(fast != null && fast.equals(slow)) {
-            return slow.next;
-        }
-        return null;
+
+        return slow;
     }
 }
