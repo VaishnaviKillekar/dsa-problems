@@ -1,35 +1,30 @@
 // Link to problem - https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 
 /**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
+ * Intuition - Iterate through list and check for duplicate sequences.
+ * When a sequence is found, iterate until the next unique element is found
+ * and delete the duplicates nodes by updating the next pointer of first node
+ * in sequence to the unique node found.
+ * 
+ * Time complexity - O(n)
+ * Space complexity - O(1)
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        if(head == null || head.next == null) {
-            return head;
-        }
-        
-        ListNode curr = head.next;
-        ListNode prev = head;
-        
-        while(curr != null) {
-            if(prev.val == curr.val) {
-                while(curr != null && prev.val == curr.val) {
-                    curr = curr.next;
+        ListNode curr = head;
+
+        while(curr != null && curr.next != null) {
+            // Iterate through all duplicates
+            if(curr.val == curr.next.val) {
+                ListNode iter = curr;
+                while(iter != null && iter.next != null && iter.val == iter.next.val) {
+                    iter = iter.next;
                 }
-                prev.next = curr;
+                curr.next = iter.next; 
             }
-            prev = curr;
-            curr = curr != null ? curr.next : null;
+            curr = curr.next;
         }
-        
+
         return head;
     }
 }
