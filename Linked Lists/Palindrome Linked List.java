@@ -12,48 +12,36 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode slow = head;
         ListNode fast = head;
-        ListNode second = null;
-        
-        if(head.next == null) {
-            return true;
-        }
-        
-        // Find the midpoint of list
-        while(fast.next != null && fast.next.next != null) {
-            slow = slow.next;
+        ListNode slow = head;
+
+        // Find midpoint of list
+        while(fast != null && fast.next != null) {
             fast = fast.next.next;
+            slow = slow.next;
         }
-        
-        // Check if list size is odd or even
-        if(fast.next != null) {     // even
-            second = slow.next;
+
+        // Reverse the list after slow node
+        ListNode prev = slow;
+        ListNode curr = slow.next;
+        ListNode second = slow;     // head node of reverse list
+
+        while(curr != null) {
+            prev.next = curr.next;
+            curr.next = second;
+            second = curr;
+            curr = prev.next;
         }
-        else {
-            second = slow.next;
-            slow = null;
-        }
-        
-        // Reverse the second part of list
-        ListNode curr = second;
-        while(curr.next != null) {
-            ListNode next = curr.next;
-            curr.next = next.next;
-            next.next = second;
-            second = next;
-            next = curr.next;
-        }
-        
-        // Compare the nodes in both lists
-        while(second != null) {
+
+        // Compare the first half and reverse
+        while(head != slow) {
             if(head.val != second.val) {
                 return false;
             }
             head = head.next;
             second = second.next;
         }
-        
+
         return true;
     }
 }
