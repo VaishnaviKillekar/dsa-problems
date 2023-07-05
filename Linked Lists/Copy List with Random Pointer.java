@@ -12,7 +12,7 @@
  * Then remove the interwoven connections to separate the lists.
  *
  * Time complexity - O(n)
- * Space complexity - O(n)
+ * Space complexity - O(1)
  */
 /*
 class Node {
@@ -29,42 +29,41 @@ class Node {
 */
 class Solution {
     public Node copyRandomList(Node head) {
-             
-        Node curr = head;
-        
-        if(curr == null) {
-            return curr;
+        if(head == null) {
+            return head;
         }
-        
-        // Create interwoven nodes in given list
+
+        // Create copy nodes interlaced in given list
+        Node curr = head;
         while(curr != null) {
             Node copy = new Node(curr.val);
             copy.next = curr.next;
             curr.next = copy;
             curr = copy.next;
         }
-        
+
+        // Assign head of copy list
+        Node copyHead = head.next;
+
+        // Populate random pointers of copy nodes
         curr = head;
-        
-        // Assign random pointers to interwoven nodes
-        while(curr != null && curr.next != null) {
+        while(curr != null) {
             if(curr.random != null) {
                 curr.next.random = curr.random.next;
             }
             curr = curr.next.next;
         }
-        
-        Node copyHead = head.next;
-        Node copy = copyHead;
+
+        // Separate copy nodes to create copy list from original list
         curr = head;
-        // Separate the lists
-        while(curr != null) {
+        Node copy = head.next;
+        while(curr != null && curr.next != null && copy != null) {
             curr.next = copy.next;
+            copy.next = curr.next != null ? curr.next.next : null;
             curr = curr.next;
-            copy.next = curr != null ? curr.next : null;
-            copy = curr != null ? curr.next : null;
+            copy = copy.next;
         }
-        
+
         return copyHead;
     }
 }
