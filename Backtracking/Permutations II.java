@@ -7,7 +7,7 @@
  * Use a for loop to go through all possible permutations and add an element to
  * `tempList` only if it is unused and mark it as used.
  *
- * Time complexity - O(n!)
+ * Time complexity - O(n * n!)
  * Space complexity - O(n)
  */
 class Solution {
