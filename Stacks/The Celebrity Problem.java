@@ -15,23 +15,22 @@
  * Space complexity - O(n)
  */
 class Solution
-{ 
-    //Function to find if there is a celebrity in the party or not.
+{
     int celebrity(int M[][], int n)
     {
         Stack<Integer> stack = new Stack<>();
-        
+
         // All all people to stack
     	for(int i = 0; i < n; i++) {
     	    stack.push(i);
     	}
-    	
+
     	// Check if two people know each other and eliminate them
     	while(stack.size() > 1) {
     	    // Get top two people and verify
     	    int first = stack.pop();
     	    int second = stack.pop();
-    	    
+
     	    // Check if the top two people know each other. We need to keep one person
     	    // popped out of the stack. So we do not verify the else part
     	    // Otherwise, both might know each other and will infinitely stay in stack
@@ -42,31 +41,23 @@ class Solution
     	        stack.push(first);  // Second may know first, so add first back to stack
     	    }
     	}
-    	
+
     	// The stack now contains the potential celebrity - verify both conditions
     	// Condition 1: Entire row contains 0s - celebrity knows no one
-    	boolean isRowZero = true;
     	for(int i = 0; i < n; i++) {
     	    if(M[stack.peek()][i] != 0) {
-    	        isRowZero = false;
-    	        break;
+    	        return -1;
     	    }
     	}
-    	
+
     	// Condition 2: Entire column contains 1s - celebrity is known by all
-    	boolean isColOne = true;
     	for(int i = 0; i < n; i++) {
     	    if(stack.peek() != i && M[i][stack.peek()] != 1) {
-    	        isColOne = false;
-    	        break;
+    	        return -1;
     	    }
     	}
-    	
-    	if(isRowZero && isColOne) {
-    	    return stack.pop();
-    	}
-    	
-    	return -1;
+
+    	return stack.pop();
     }
 }
 
