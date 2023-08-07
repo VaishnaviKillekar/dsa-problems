@@ -34,6 +34,49 @@ class Solution {
     }
 }
 
+
+/**
+ * Intuition - Iterate through given stations until all are visited starting at 0.
+ * Track all stations visited so far using 'count'. If 'count' reaches total number
+ * of gas stations, then circuit is complete.
+ * Otherwise, we start the next search from the station where the last circuit failed
+ * since if we can't reach the last station from i, then it also can't be reached from
+ * i + 1. If the last station visited was j, then the next circuit search is restarted
+ * from j + 1. This avoid TLE as in the next solution
+ *
+ * Time complexity - O(n)
+ * Space complexity - O(1)
+ */
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int i = 0;
+
+        while(i < gas.length) {
+            int tank = 0;
+            int count = 0;
+            int curr = i;
+            boolean circle = true;
+            while(count < gas.length) {
+                tank += gas[curr % gas.length];
+                if(tank - cost[curr % gas.length] < 0) {
+                    circle = false;
+                    break;
+                }
+                tank -= cost[curr % gas.length];
+                count++;
+                curr++;
+            }
+            if(circle) {
+                return i;
+            }
+            i = curr + 1;
+        }
+
+        return -1;
+    }
+}
+
+
 /**
  * Intuition - Brute Force approach (Time Limit exceeded for very large inputs)
  * We check if the current station can be reached after visiting all stations.
