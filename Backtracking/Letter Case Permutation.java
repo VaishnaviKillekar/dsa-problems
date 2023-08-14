@@ -1,6 +1,39 @@
 // Link to problem - https://leetcode.com/problems/letter-case-permutation/
 
 /**
+ * Intuition - Similar approach as https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+ * Add every combination to a linked list starting with empty string. Pick the head of the list as prefix and add
+ * the current character to the prefix. If the character is a number, append to prefix and add to result. Otherwise,
+ * add two combinations to the result - append prefix with upper case and lower case of current character.
+ * Continue this process until the length of head of the list is not equal to length of given string s.
+ *
+ * Time complexity - O(2^n) - every character of s is a letter and there are two possibilities - uppercase, lowercase
+ * Space complexity - O(1)
+ */
+class Solution {
+    public List<String> letterCasePermutation(String s) {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("");
+
+        while(list.peek().length() != s.length()) {
+            String prefix = list.removeFirst();
+            int index = prefix.length();
+            if(!Character.isDigit(s.charAt(index))) {
+                list.add(prefix + Character.toUpperCase(s.charAt(index)));
+                list.add(prefix + Character.toLowerCase(s.charAt(index)));
+            }
+            else {
+                list.add(prefix + s.charAt(index));
+            }
+        }
+
+        return list;
+    }
+}
+
+
+
+/**
  * Intuition - Recursion with backtracking
  * Maintain an index which goes through each character and flips its case.
  *
