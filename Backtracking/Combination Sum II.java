@@ -9,7 +9,7 @@
  * avoid a duplicate combo.
  * We make recursive call only if sum is lower than or equal to target to avoid TLE.
  *
- * Time complexity - 
+ * Time complexity - O(n!)
  * Space complexity - O(n)
  */
 class Solution {
