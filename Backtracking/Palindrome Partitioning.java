@@ -4,7 +4,8 @@
  * Intuition - Recursively iterate over the string in a DFS fashion.
  * For every recursive call, explore all possible substrings starting at 'start' until 'end' reaches end of string.
  * For every substring, check if it is a palindrome. If yes, recurse by moving start to next index and adding current
- * substring to 'curr' list. If not a palindrome, increment 'end' and continue checking.
+ * substring to 'curr' list. 
+ * If not a palindrome, increment 'end' and continue checking.
  * On backtracking, remove the last added palindrome and iteration continues to find longer substrings.
  *
  * Time complexity - O(n * 2^n) - checking if string is a palindrome takes O(n) time & backtracking explores 2^n possibile substrings
@@ -45,6 +46,47 @@ class Solution {
     }
 }
 
+
+
+/**
+ * Intuition - Recursively iterate over the string in a DFS fashion using memoization.
+ * For every recursive call, explore all possible substrings starting at 'start' until 'end' reaches end of string.
+ * For every substring, check if it is a palindrome. If substring length <= 2 and start and end character match, 
+ * then it is a plaindrome. If length > 2, then consider acca. Here, we check if the string between start and end
+ * is a palindrome from dp array as dp[start + 1][end - 1].
+ * If yes, recurse by moving start to next index and adding current substring to 'curr' list.
+ * If not, increment 'end' and continue checking.
+ *
+ * On backtracking, remove the last added palindrome and iteration continues to find longer substrings.
+ *
+ * Time complexity - O(n * 2^n) - n is length of string & backtracking explores 2^n possibile substrings
+ * Space complexity - O(n * n) - depth of recursion tree + 2D dp array
+ */
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        boolean[][] dp = new boolean[s.length()][s.length()];
+
+        dfs(s, result, dp, new ArrayList<>(), 0);
+        return result;
+    }
+
+    public void dfs(String s, List<List<String>> result, boolean[][] dp, List<String> curr, int start) {
+        if(start >= s.length()) {
+            result.add(new ArrayList<>(curr));
+            return;
+        }
+
+        for(int end = start; end < s.length(); end++) {
+            if(s.charAt(start) == s.charAt(end) && (end - start <= 2 || dp[start + 1][end - 1])) {
+                dp[start][end] = true;
+                curr.add(s.substring(start, end + 1));
+                dfs(s, result, dp, curr, end + 1);
+                curr.remove(curr.size() - 1);
+            }
+        }
+    }
+}
 
 
 
