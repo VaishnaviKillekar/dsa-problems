@@ -1,6 +1,54 @@
 // Link to problem - https://leetcode.com/problems/palindrome-partitioning/description/
 
 /**
+ * Intuition - Recursively iterate over the string in a DFS fashion.
+ * For every recursive call, explore all possible substrings starting at 'start' until 'end' reaches end of string.
+ * For every substring, check if it is a palindrome. If yes, recurse by moving start to next index and adding current
+ * substring to 'curr' list. If not a palindrome, increment 'end' and continue checking.
+ * On backtracking, remove the last added palindrome and iteration continues to find longer substrings.
+ *
+ * Time complexity - O(n * 2^n) - checking if string is a palindrome takes O(n) time & backtracking explores 2^n possibile substrings
+ * Space complexity - O(n) - depth of recursion tree
+ */
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        dfs(s, result, new ArrayList<>(), 0);
+        return result;
+    }
+
+    public void dfs(String s, List<List<String>> result, List<String> curr, int start) {
+        if(start >= s.length()) {
+            result.add(new ArrayList<>(curr));
+            return;
+        }
+
+        for(int end = start; end < s.length(); end++) {
+            if(isPalindrome(s, start, end)) {
+                curr.add(s.substring(start, end + 1));
+                dfs(s, result, curr, end + 1);
+                curr.remove(curr.size() - 1);
+            }
+        }
+    }
+
+    public boolean isPalindrome(String s, int start, int end) {
+        while(start < end) {
+            if(s.charAt(start) != s.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+
+        return true;
+    }
+}
+
+
+
+
+/**
  * Intuition - Scan the given string by fixing left part of it. Start with first fixing only
  * first character, then backtrack on the rest of the string. While exploring possibilities,
  * add the fixed parts of the string until the string becomes empty. Now all possibilities 
