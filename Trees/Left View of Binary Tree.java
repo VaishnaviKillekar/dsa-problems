@@ -1,9 +1,9 @@
 // Link to problem - https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1
 
 /**
- * Intuition - Use a HashMap of HashMap to store every unique row and the leftmost
- * column corresponding to it. Only the node in the leftmost column is stored per row
- * as it will be the only visible node from the left.
+ * Intuition - Use a HashMap to store every unique row and the leftmost
+ * node in it i.e., the first found node as it will be the only visible 
+ * node from the left.
  *
  * Time complexity - O(n)
  * Space complexity - O(n)
@@ -13,46 +13,37 @@ class Tree
     ArrayList<Integer> leftView(Node root)
     {
         ArrayList<Integer> result = new ArrayList<>();
-        Map<Integer, Map<Integer, Integer>> rowColMap = new HashMap<>();
+        Map<Integer, Integer> rowMap = new HashMap<>();
         
         if(root == null) {
             return result;
         }
         
         // Get the first node for each row
-        traverse(root, rowColMap, 0, 0);
+        traverse(root, rowMap, 0);
         
         // Get the left view
-        List<Integer> rows = new ArrayList<>(rowColMap.keySet());
+        List<Integer> rows = new ArrayList<>(rowMap.keySet());
         Collections.sort(rows);
         for(Integer row : rows) {
-            // Add the only entry (leftmost column) for that row
-            result.add(rowColMap.get(row).entrySet().iterator().next().getValue());
+            result.add(rowMap.get(row));
         }
         
         return result;
     }
     
-    void traverse(Node node, Map<Integer, Map<Integer, Integer>> rowColMap, int row, int col) {
+    void traverse(Node node, Map<Integer, Integer> rowMap, int row) {
         if(node == null) {
             return;
         }
         
         // Is this row discovered?
-        if(rowColMap.get(row) == null) {
+        if(rowMap.get(row) == null) {
             // Row found for the first time
-            rowColMap.put(row, new HashMap<>());
+            rowMap.put(row, node.data);
         }
         
-        // Is this the first column discovered for this row? If yes, it is leftmost
-        if(rowColMap.get(row).size() == 0) {
-            // No rows found - add current row node
-            Map<Integer, Integer> colMap = new HashMap<>();
-            colMap.put(col, node.data);
-            rowColMap.put(row, colMap);
-        }
-        
-        traverse(node.left, rowColMap, row + 1, col - 1);
-        traverse(node.right, rowColMap, row + 1, col + 1);
+        traverse(node.left, rowMap, row + 1);
+        traverse(node.right, rowMap, row + 1);
     }
 }
