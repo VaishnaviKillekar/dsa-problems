@@ -1,7 +1,23 @@
 // Link to problem - https://www.codingninjas.com/studio/problems/merge-two-bsts_920474?leftPanelTabValue=PROBLEM
 
 /**
- * Intuition - Get inorder traversal of both BSTs - this returns sorted arrays.
+ * Intuition - Space optimised solution to only use space upto height of tree
+ * Flatten the given BSTs into sorted linked lists. These linked lists can be
+ * merged using merge function of merge sort without additional space.
+ *
+ * The final BST can be constructed using sorted list as it serves as the inorder.
+ * Refer: Trees/Balance a Binary Search Tree.java
+ *
+ * Time complexity - O(m + n)
+ * Space complexity - O(h1 + h2)
+ */
+TODO
+
+
+
+/**
+ * Intuition - Stack Overflow with O(n) space for inorder traversal
+ * Get inorder traversal of both BSTs - this returns sorted arrays.
  * Now these arrays are merged using merge sort to get a single sorted array.
  *
  * NOTE - The final sorted array can be used to construct a BST using the concept
